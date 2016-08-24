@@ -1,0 +1,24 @@
+MovieInfoIntent {a b|movie} movie info
+MovieInfoIntent {a b c d|movie} info
+MovieInfoIntent {a|movie} movie informaton
+MovieInfoIntent {a|movie} informaton
+MovieInfoIntent {a b c|movie} movie detail
+MovieInfoIntent {a b c d|movie} detail
+MovieInfoIntent {a |movie} movie
+MovieInfoIntent {a b|movie}
+MovieInfoIntent {a b c|movie}
+MovieInfoIntent {a b c d|movie} 
+PlotInfoIntent {a b|movie} movie plot
+PlotInfoIntent {a|movie} plot
+PlotInfoIntent {a b|movie} plot
+PlotInfoIntent {a b c|movie} plot
+PlotInfoIntent {a b c d|movie} plot
+PlotInfoIntent plot of {a b|movie}
+PlotInfoIntent {a b|movie} movie story
+RatingInfoIntent {a b|movie} movie rating
+RatingInfoIntent {a|movie} rating
+RatingInfoIntent {a b|movie} rating
+RatingInfoIntent {a b c|movie} rating
+RatingInfoIntent {a b c d|movie} rating
+RatingInfoIntent rating of {a b|movie} movie
+RatingInfoIntent rating of {a b|movie}

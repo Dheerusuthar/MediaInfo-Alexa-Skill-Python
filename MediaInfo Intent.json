@@ -1,0 +1,55 @@
+{
+  "intents": [
+    {
+      "intent": "MovieInfoIntent",
+      "slots": [
+        {
+          "name": "movie",
+          "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "rating",
+          "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "plot",
+          "type": "AMAZON.LITERAL"
+        }
+      ]
+    },
+    {
+      "intent": "RatingInfoIntent",
+      "slots": [
+        {
+          "name": "movie",
+          "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "rating",
+          "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "plot",
+          "type": "AMAZON.LITERAL"
+        }
+      ]
+    },
+    {
+      "intent": "PlotInfoIntent",
+      "slots": [
+        {
+          "name": "movie",
+          "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "rating",
+          "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "plot",
+          "type": "AMAZON.LITERAL"
+        }
+      ]
+    }
+  ]
+}
