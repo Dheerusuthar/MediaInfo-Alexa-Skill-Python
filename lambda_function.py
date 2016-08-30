@@ -98,10 +98,10 @@ def get_welcome_response():
     """
 
     session_attributes = {}
-    card_title = "Welcome"
-    speech_output = "Welcome to the MediaInfo Alexa Skills. Please tell me movie name or tv series or tv series to get i m d b rating and pllot of movie." \
-                    "If you want rating of the movie then say movie name or tv series or tv series followed by rating."\
-                    "if you want to hear full plot of movie say movie name or tv series or tv series followed by plot"
+    card_title = "Welcome to Media Monk"
+    speech_output = "Welcome to the Media Monk Alexa Skills. Please tell me movie name or tv show name to get i m d b rating and plot of movie." \
+                    "<break time='200ms'/>If you want rating of the movie then say movie name or tv series name followed by rating."\
+                    "<break time='200ms'/>if you want to hear full plot of movie say movie name or tv series name followed by plot"
     # If the user either does not reply to the welcome message or says something.
     # that is not understood, they will be prompted again with this text.
     reprompt_text = "Please tell me a movie name or tv show name to get information."
@@ -111,9 +111,9 @@ def get_welcome_response():
 
 
 def handle_session_end_request():
-    card_title = "Session Ended"
-    speech_output = "Thank you for trying the MediaInfo Alexa Skills. " \
-                    "Have a nice day! "
+    card_title = "Media Monk Stopped"
+    speech_output = "Thank you for trying the Media Monk Alexa Skills. " \
+                    "Have the day you deserve."
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
     return build_response({}, build_speechlet_response(
@@ -123,29 +123,49 @@ def handle_session_end_request():
 def get_movie_info(intent, session):
     '''this fuction get the movie plot and its rating through api'''
     card_title = intent['name']
+    moviename = intent['slots']['movie']['value']
     session_attributes = {}
     should_end_session = False
+	
     if 'movie' in intent['slots']:
+		#check if movie slot valur present in request or not
         if intent['name'] == "MovieInfoIntent":
-	    moviename = intent['slots']['movie']['value']
-            jsonobj = get_json_data(moviename)
-	    plot = jsonobj['Plot']
-	    rating = jsonobj['imdbRating']
-	    speech_output = "The Rating of \""+moviename+"\" is "+rating+". The plot is "+plot		
-            reprompt_text = "You can say  moviename to get its i m d b rating and its plot"
+			jsonobj = get_json_data(moviename)
+            if jsonobj['Response'] == "True":
+				#check if response is valid or not
+                card_title = "Movie Info"
+                plot = jsonobj['Plot']
+                rating = jsonobj['imdbRating']
+                speech_output = "The Rating of \""+moviename+"\" is "+rating+". The plot is "+plot		
+                reprompt_text = "You can say  moviename to get its i m d b rating and its plot"
+            else:
+                card_title = "Movie Not Found"
+                speech_output = "The requested movie not found in  database. Please try again. "		
+                reprompt_text = "You can say  moviename to get its i m d b rating and its plot"
         elif intent['name'] == "PlotInfoIntent":
 	    moviename = intent['slots']['movie']['value']
 	    plot="plot=full"
             jsonobj = get_json_data(moviename,plot)
-	    plot = jsonobj['Plot']
-	    speech_output = "The Plot of \""+moviename+"\" is "+plot		
-            reprompt_text = "You can say  moviename to get its i m d b rating and its plot"
+            if jsonobj['Response'] == "True":
+                card_title = "Movie Plot"
+                plot = jsonobj['Plot']
+                speech_output = "The Plot of \""+moviename+"\" is "+plot		
+                reprompt_text = "You can say  moviename to get its i m d b rating and its plot"
+            else:
+                card_title = "Movie Not Found"
+                speech_output = "The requested movie not found in  database. Please try again. "		
+                reprompt_text = "You can say  moviename to get its i m d b rating and its plot"
         elif intent['name'] == "RatingInfoIntent":
-	    moviename = intent['slots']['movie']['value']
             jsonobj = get_json_data(moviename)
-	    rating = jsonobj['imdbRating']
-	    speech_output = "The Rating of \""+moviename+"\" is "+rating		
-            reprompt_text = "You can say  moviename to get its i m d b rating and its plot"
+            if jsonobj['Response'] == "True":
+                card_title = "Movie Rating"
+                rating = jsonobj['imdbRating']
+                speech_output = "The Rating of \""+moviename+"\" is "+rating		
+                reprompt_text = "You can say  moviename to get its i m d b rating and its plot"
+            else:
+                card_title = "Movie Not Found"
+                speech_output = "The requested movie not found in  database. Please try again. "		
+                reprompt_text = "You can say  moviename to get its i m d b rating and its plot"
         else:
             speech_output = "I'm not sure what your movie name or tv show name is. " \
                         "Please try again."
@@ -160,11 +180,11 @@ def get_movie_info(intent, session):
 
     return build_response(session_attributes, build_speechlet_response(card_title, speech_output, reprompt_text, should_end_session))
 		
-		
+
 def get_json_data(moviename,plot="plot=short"):
-	output = (requests.get("http://www.omdbapi.com/?t="+moviename+"&y=&"+plot+"&r=json")).json()
-	return output		
-		
+	"""this function get json formatted response from omdb api"""
+    output = (requests.get("http://www.omdbapi.com/?t="+moviename+"&y=&"+plot+"&r=json")).json()
+    return output
 		
 # --------------- Helpers that build all of the responses ----------------------
 
@@ -177,8 +197,8 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
         },
         'card': {
             'type': 'Simple',
-            'title': 'SessionSpeechlet - ' + title,
-            'content': 'SessionSpeechlet - ' + output
+            'title': title,
+            'content':output
         },
         'reprompt': {
             'outputSpeech': {
