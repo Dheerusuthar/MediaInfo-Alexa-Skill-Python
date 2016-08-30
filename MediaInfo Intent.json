@@ -6,14 +6,6 @@
         {
           "name": "movie",
           "type": "AMAZON.LITERAL"
-        },
-        {
-          "name": "rating",
-          "type": "AMAZON.LITERAL"
-        },
-        {
-          "name": "plot",
-          "type": "AMAZON.LITERAL"
         }
       ]
     },
@@ -22,14 +14,6 @@
       "slots": [
         {
           "name": "movie",
-          "type": "AMAZON.LITERAL"
-        },
-        {
-          "name": "rating",
-          "type": "AMAZON.LITERAL"
-        },
-        {
-          "name": "plot",
           "type": "AMAZON.LITERAL"
         }
       ]
@@ -40,16 +24,17 @@
         {
           "name": "movie",
           "type": "AMAZON.LITERAL"
-        },
-        {
-          "name": "rating",
-          "type": "AMAZON.LITERAL"
-        },
-        {
-          "name": "plot",
-          "type": "AMAZON.LITERAL"
         }
       ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
     }
   ]
 }
