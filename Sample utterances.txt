@@ -5,7 +5,6 @@ MovieInfoIntent {a|movie} informaton
 MovieInfoIntent {a b c|movie} movie detail
 MovieInfoIntent {a b c d|movie} detail
 MovieInfoIntent {a |movie} movie
-MovieInfoIntent {a b|movie}
 MovieInfoIntent {a b c|movie}
 MovieInfoIntent {a b c d|movie} 
 PlotInfoIntent {a b|movie} movie plot
@@ -21,4 +20,3 @@ RatingInfoIntent {a b|movie} rating
 RatingInfoIntent {a b c|movie} rating
 RatingInfoIntent {a b c d|movie} rating
 RatingInfoIntent rating of {a b|movie} movie
-RatingInfoIntent rating of {a b|movie}
